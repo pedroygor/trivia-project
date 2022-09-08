@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { fetchTokenAPI } from '../redux/actions';
 
 class Login extends Component {
   constructor(props) {
@@ -12,6 +16,11 @@ class Login extends Component {
   handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({ [name]: value });
+  };
+
+  handClickApi = () => {
+    const { tokenPlayer } = this.props;
+    tokenPlayer();
   };
 
   render() {
@@ -42,18 +51,36 @@ class Login extends Component {
               value={ email }
             />
           </label>
-          <button
-            type="button"
-            data-testid="btn-play"
-            disabled={ !username || !email }
-          >
-            Play
-
-          </button>
+          <Link to="/game">
+            <button
+              type="submit"
+              data-testid="btn-play"
+              disabled={ !username || !email }
+              onClick={ this.handClickApi }
+            >
+              Play
+            </button>
+          </Link>
+          <Link to="/config">
+            <button
+              type="button"
+              data-testid="btn-settings"
+            >
+              Settings
+            </button>
+          </Link>
         </form>
       </div>
     );
   }
 }
 
-export default Login;
+Login.propTypes = {
+  tokenPlayer: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  tokenPlayer: () => dispatch(fetchTokenAPI()),
+});
+
+export default connect(null, mapDispatchToProps)(Login);

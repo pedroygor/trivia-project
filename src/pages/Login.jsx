@@ -34,6 +34,7 @@ class Login extends Component {
               type="text"
               name="username"
               id="username"
+              placeholder="Username"
               data-testid="input-player-name"
               onChange={ this.handleChange }
               value={ username }
@@ -44,6 +45,7 @@ class Login extends Component {
             Email
             <input
               data-testid="input-gravatar-email"
+              placeholder="Email"
               type="email"
               name="email"
               id="email"

@@ -1,14 +1,27 @@
-import { TOKEN } from '../actions';
+import { TOKEN, USER } from '../actions';
 
-const INITIAL_STATE = '';
+const INITIAL_STATE = {
+  name: '',
+  email: '',
+  token: '',
+};
 
-const token = (state = INITIAL_STATE, action) => {
+function token(state = INITIAL_STATE, action) {
   switch (action.type) {
   case TOKEN:
-    return action.token;
+    return {
+      ...state,
+      token: action.token,
+    };
+  case USER:
+    return {
+      ...state,
+      name: action.name,
+      email: action.email,
+    };
   default:
     return state;
   }
-};
+}
 
 export default token;

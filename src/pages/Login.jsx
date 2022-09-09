@@ -18,11 +18,13 @@ class Login extends Component {
     this.setState({ [name]: value });
   };
 
-  handClickApi = () => {
-    const { tokenPlayer, dispatch } = this.props;
+  handClickApi = (event) => {
+    event.preventDefault();
+    const { tokenPlayer, userRequest, history } = this.props;
     const { username, email } = this.state;
-    dispatch(requestUser(email, username));
-    // tokenPlayer();
+    tokenPlayer();
+    userRequest(username, email);
+    history.push('/game');
   };
 
   render() {
@@ -53,16 +55,14 @@ class Login extends Component {
               value={ email }
             />
           </label>
-          <Link to="/game">
-            <button
-              type="submit"
-              data-testid="btn-play"
-              disabled={ !username || !email }
-              onClick={ this.handClickApi }
-            >
-              Play
-            </button>
-          </Link>
+          <button
+            type="submit"
+            data-testid="btn-play"
+            disabled={ !username || !email }
+            onClick={ this.handClickApi }
+          >
+            Play
+          </button>
           <Link to="/config">
             <button
               type="button"
@@ -78,12 +78,16 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  userRequest: PropTypes.func.isRequired,
   tokenPlayer: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   tokenPlayer: () => dispatch(fetchTokenAPI()),
+  userRequest: (username, email) => dispatch(requestUser(username, email)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

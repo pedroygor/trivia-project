@@ -16,7 +16,7 @@ function token(state = INITIAL_STATE, action) {
   case USER:
     return {
       ...state,
-      name: action.username,
+      name: action.name,
       email: action.email,
     };
   default:

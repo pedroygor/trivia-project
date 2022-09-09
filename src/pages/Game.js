@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { getAsks } from '../servicesApi';
+import Header from '../components/Header';
+import Questions from '../components/Questions';
 
-class Game extends Component {
-  async componentDidMount() {
+export default class Game extends Component {
+  componentDidMount() {
     const { history } = this.props;
     const tokenVerify = JSON.parse(localStorage.getItem('token'));
     const lengthVerify = 64;
@@ -10,17 +11,14 @@ class Game extends Component {
       localStorage.setItem('token', '');
       return history.push('/');
     }
-    const returnResult = await getAsks(tokenVerify);
-    console.log(returnResult);
   }
 
   render() {
     return (
       <div>
-        asda
+        <Header />
+        <Questions />
       </div>
     );
   }
 }
-
-export default Game;

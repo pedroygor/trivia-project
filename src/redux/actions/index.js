@@ -1,12 +1,17 @@
+<<<<<<< HEAD
 import { getAsksApi, getTokenApi } from '../../servicesApi';
+=======
+import { getTokenApi } from '../../services/servicesApi';
+>>>>>>> 2a0867129f3d563659517348c272638c85892f60
 
-export const ACTION_GENERIC = 'ACTION_GENERIC';
+export const USER = 'USER';
 export const TOKEN = 'TOKEN';
 export const SAVE_ASKS = 'SAVE_ASKS';
 
-export const requestActionGeneric = (payload) => ({
-  type: ACTION_GENERIC,
-  payload,
+export const requestUser = (name, email) => ({
+  type: USER,
+  name,
+  email,
 });
 
 export const tokenAction = (token) => ({

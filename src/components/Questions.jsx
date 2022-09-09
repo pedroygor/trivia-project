@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MultipleChoicesQuestion from './MultipleChoicesQuestion';
 import TrueOrFalseQuestion from './TrueOrFalseQuestion ';
-import { requestSaveQuestions } from '../redux/actions/game';
+// import { requestSaveQuestions } from '../redux/actions/game';
 
 class Questions extends Component {
   // componentDidMount() {
@@ -28,10 +28,10 @@ class Questions extends Component {
   }
 }
 
-Questions.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  token: PropTypes.string.isRequired,
-};
+// Questions.propTypes = {
+//   dispatch: PropTypes.func.isRequired,
+//   token: PropTypes.string.isRequired,
+// };
 
 const mapStateToProps = (state) => ({
   token: state.token.token,

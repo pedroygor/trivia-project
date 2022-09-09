@@ -3,11 +3,7 @@ import { REQUEST_EMAIL } from '../actions/game';
 // Esse reducer será responsável por tratar as informações do GAME
 
 const INITIAL_STATE = {
-  data: {
-    name: 'Antonio, O Sicrano', // string que armazena o nome da pessoa usuária
-    score: 0,
-    email: 'antoniosicrano@.bol.com.br',
-  },
+  score: 0,
 };
 
 function gameReducer(state = INITIAL_STATE, action) {

@@ -8,14 +8,13 @@ class Header extends Component {
   };
 
   componentDidMount() {
-    const { game: email } = this.props;
+    const { user: email } = this.props;
     this.setState({ hash: md5(email).toString() });
   }
 
   render() {
     const { hash } = this.state;
-    const { game } = this.props;
-    const { name, score } = game;
+    const { game: score, user: name } = this.props;
     return (
       <header>
         <div data-testid="header-profile-picture">
@@ -36,6 +35,7 @@ class Header extends Component {
 
 const mapStateToProps = (state) => ({
   game: state.game.data,
+  user: state.token,
 });
 
 export default connect(mapStateToProps)(Header);

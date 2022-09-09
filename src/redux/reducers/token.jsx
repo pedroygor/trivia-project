@@ -1,11 +1,9 @@
-import { TOKEN } from '../actions';
+import { TOKEN, USER } from '../actions';
 
 const INITIAL_STATE = {
-  login: {
-    name: '',
-    email: '',
-    token: '',
-  },
+  name: '',
+  email: '',
+  token: '',
 };
 
 function token(state = INITIAL_STATE, action) {
@@ -14,6 +12,12 @@ function token(state = INITIAL_STATE, action) {
     return {
       ...state,
       token: action.token,
+    };
+  case USER:
+    return {
+      ...state,
+      name: action.username,
+      email: action.email,
     };
   default:
     return state;

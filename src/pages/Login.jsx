@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { fetchTokenAPI } from '../redux/actions';
+import { fetchTokenAPI, requestUser } from '../redux/actions';
 
 class Login extends Component {
   constructor(props) {
@@ -19,8 +19,10 @@ class Login extends Component {
   };
 
   handClickApi = () => {
-    const { tokenPlayer } = this.props;
-    tokenPlayer();
+    const { tokenPlayer, dispatch } = this.props;
+    const { username, email } = this.state;
+    dispatch(requestUser(email, username));
+    // tokenPlayer();
   };
 
   render() {
@@ -76,6 +78,7 @@ class Login extends Component {
 }
 
 Login.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   tokenPlayer: PropTypes.func.isRequired,
 };
 

@@ -1,4 +1,4 @@
-import { REQUEST_EMAIL } from '../actions/gameActions';
+import { REQUEST_EMAIL } from '../actions/game';
 
 // Esse reducer será responsável por tratar as informações do GAME
 

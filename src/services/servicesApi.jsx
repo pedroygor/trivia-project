@@ -4,6 +4,8 @@ export const getTokenApi = async () => {
   return data;
 };
 
-export const testid = async () => {
-  console.log('asdsad');
+export const getAsksApi = async (token) => {
+  const requestFetch = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
+  const requestJSON = await requestFetch.json();
+  return requestJSON;
 };

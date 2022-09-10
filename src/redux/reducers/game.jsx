@@ -1,4 +1,5 @@
-import { REQUEST_ADD_SCORE, REQUEST_SAVE_QUESTIONS } from '../actions/game';
+import { REQUEST_ADD_SCORE } from '../actions/game';
+import { SAVE_ASKS } from '../actions';
 
 // Esse reducer será responsável por tratar as informações do GAME
 
@@ -14,10 +15,10 @@ function gameReducer(state = INITIAL_STATE, action) {
       ...state,
       score: action.score + 1,
     };
-  case REQUEST_SAVE_QUESTIONS:
+  case SAVE_ASKS:
     return {
       ...state,
-      questions: action.array,
+      questions: [...action.asks],
     };
   default:
     return state;

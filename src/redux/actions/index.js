@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { getAsksApi, getTokenApi } from '../../servicesApi';
-=======
-import { getTokenApi } from '../../services/servicesApi';
->>>>>>> 2a0867129f3d563659517348c272638c85892f60
+import { getAsksApi, getTokenApi } from '../../services/servicesApi';
 
 export const USER = 'USER';
 export const TOKEN = 'TOKEN';

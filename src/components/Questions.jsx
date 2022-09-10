@@ -1,41 +1,54 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MultipleChoicesQuestion from './MultipleChoicesQuestion';
 import TrueOrFalseQuestion from './TrueOrFalseQuestion ';
-// import { requestSaveQuestions } from '../redux/actions/game';
 
 class Questions extends Component {
-  // componentDidMount() {
-  //   this.fetchQuestions();
-  // }
+  state = {
+    index: 0,
+  };
 
-  // fetchQuestions = async () => {
-  //   const { token, dispatch } = this.props;
-  //   const URL_API = `https://opentdb.com/api.php?amount=5&token=${token}`;
-  //   const response = await fetch(URL_API);
-  //   const objeto = await response.json();
-  //   dispatch(requestSaveQuestions(objeto.results));
-  // };
+  clickState = () => {
+    const { index } = this.state;
+    this.setState({
+      index: index + 1,
+    });
+  };
 
   render() {
+    const { questions } = this.props;
+    const { index } = this.state;
     return (
       <main>
-        <MultipleChoicesQuestion />
-        <TrueOrFalseQuestion />
+        { questions.length > 0
+          && (
+            <div>
+              { questions[index].type === 'multiple'
+                ? <MultipleChoicesQuestion question={ questions[index] } />
+                : <TrueOrFalseQuestion question={ questions[index] } />}
+            </div>
+          ) }
+        <button
+          data-testid="btn-next"
+          type="button"
+          onClick={ this.clickState }
+        >
+          Next
+        </button>
       </main>
     );
   }
 }
-
-// Questions.propTypes = {
-//   dispatch: PropTypes.func.isRequired,
-//   token: PropTypes.string.isRequired,
-// };
-
+Questions.propTypes = {
+  questions: PropTypes.arrayOf(PropTypes.shape({
+    type: PropTypes.string,
+  })).isRequired,
+};
 const mapStateToProps = (state) => ({
-  token: state.token.token,
+  responseCode: state.game.responseCode,
   questions: state.game.questions,
+  token: state.token.token,
 });
 
 export default connect(mapStateToProps)(Questions);

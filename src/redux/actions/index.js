@@ -22,9 +22,12 @@ export const saveAsks = (asks) => ({
 
 export const fetchTokenAPI = () => (dispatch) => {
   getTokenApi().then((data) => {
-    localStorage.setItem('token', JSON.stringify(data.token));
+    localStorage.setItem('token', data.token);
     dispatch(tokenAction(data.token));
     getAsksApi(data.token)
-      .then((questions) => dispatch(saveAsks(questions.results)));
+      .then((questions) => {
+        console.log(questions);
+        dispatch(saveAsks(questions));
+      });
   });
 };

@@ -18,10 +18,11 @@ class Questions extends Component {
 
   render() {
     const { questions } = this.props;
+    console.log(questions);
     const { index } = this.state;
     return (
       <main>
-        { questions.length > 0
+        { questions && questions.length > 0
           && (
             <div>
               { questions[index].type === 'multiple'
@@ -47,7 +48,7 @@ Questions.propTypes = {
 };
 const mapStateToProps = (state) => ({
   responseCode: state.game.responseCode,
-  questions: state.game.questions,
+  questions: state.game.questions.results,
   token: state.token.token,
 });
 

@@ -18,7 +18,7 @@ function gameReducer(state = INITIAL_STATE, action) {
   case SAVE_ASKS:
     return {
       ...state,
-      questions: [...action.asks],
+      questions: action.asks,
     };
   default:
     return state;

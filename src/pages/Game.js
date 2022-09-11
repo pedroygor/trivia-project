@@ -6,20 +6,8 @@ import Header from '../components/Header';
 import Questions from '../components/Questions';
 
 class Game extends Component {
-  // async componentDidMount() {
-  //   const { history, asksDid } = this.props;
-  //   const tokens = localStorage.getItem('token');
-  //   const returnQuestions = await getAsksApi(tokens);
-  //   asksDid(returnQuestions.results);
-  //   if (returnQuestions.response_code !== 0) {
-  //     localStorage.removeItem('token');
-  //     history.push('/');
-  //   }
-  // }
-
   componentDidUpdate() {
     const { history, token } = this.props;
-    console.log(token);
     const objVerify = {
       response_code: 3,
       results: [],

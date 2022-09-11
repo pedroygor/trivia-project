@@ -1,4 +1,4 @@
-import { REQUEST_ADD_SCORE } from '../actions/game';
+import { REQUEST_ADD_SCORE, REQUEST_SHOW_NEXT } from '../actions/game';
 import { SAVE_ASKS } from '../actions';
 
 // Esse reducer será responsável por tratar as informações do GAME
@@ -6,6 +6,7 @@ import { SAVE_ASKS } from '../actions';
 const INITIAL_STATE = {
   score: 0,
   questions: [],
+  showNext: false,
 };
 
 function gameReducer(state = INITIAL_STATE, action) {
@@ -19,6 +20,11 @@ function gameReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       questions: action.asks,
+    };
+  case REQUEST_SHOW_NEXT:
+    return {
+      ...state,
+      showNext: action.bool,
     };
   default:
     return state;

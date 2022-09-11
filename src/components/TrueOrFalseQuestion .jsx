@@ -1,41 +1,50 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { requestShowBtnNext } from '../redux/actions/game';
 
-export default class TrueOrFalseQuestion extends Component {
+class TrueOrFalseQuestion extends Component {
   state = {
     timer: 30,
+    endTime: false,
     disable: false,
+    shuffleArray: [],
   };
 
   componentDidMount() {
-    this.setTimer();
+    this.shuffleAnswers();
+    const velocidade = 1000;
+    setInterval(() => this.setTimer(), velocidade);
   }
 
   setTimer = () => {
-    const trinta = 30;
-    let timer = trinta;
-    const velocidade = 1000;
-    const tempo = 30000;
-    const intervalo = setInterval(() => {
-      console.log(timer);
-      timer -= 1;
-    }, velocidade);
-    setTimeout(() => {
-      clearInterval(intervalo);
-      this.setState({ disable: true });
-    }, tempo);
+    const { timer, endTime } = this.state;
+    const { dispatch } = this.props;
+    if (timer === 1) {
+      const velocidade = 1000;
+      const interval = setInterval(() => this.setTimer(), velocidade);
+      clearInterval(interval);
+      this.setState({ disable: true, endTime: true });
+      dispatch(requestShowBtnNext(true));
+    }
+    if (!endTime) this.setState({ timer: timer - 1 });
   };
 
-  shuffleAnswers = (array) => {
+  shuffleAnswers = () => {
+    const { question } = this.props;
+    const arrayAnswers = [question.correct_answer, ...question.incorrect_answers];
     const number = 0.5;
-    array.sort(() => number - Math.random());
+    this.setState({ shuffleArray: arrayAnswers.sort(() => number - Math.random()) });
+  };
+
+  submitAnswer = () => {
+    const { dispatch } = this.props;
+    dispatch(requestShowBtnNext(true));
   };
 
   render() {
-    const { timer, disable } = this.state;
+    const { timer, disable, shuffleArray } = this.state;
     const { question } = this.props;
-    const arrayAnswers = [question.correct_answer, ...question.incorrect_answers];
-    this.shuffleAnswers(arrayAnswers);
     return (
       question && (
         <fieldset>
@@ -60,7 +69,7 @@ export default class TrueOrFalseQuestion extends Component {
             {question.question}
           </div>
           <div data-testid="answer-options">
-            {arrayAnswers.map((element, index) => {
+            {shuffleArray.map((element, index) => {
               if (element === question.correct_answer) {
                 return (
                   <button
@@ -96,6 +105,7 @@ export default class TrueOrFalseQuestion extends Component {
 }
 
 TrueOrFalseQuestion.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   question: PropTypes.arrayOf(PropTypes.shape({
     type: PropTypes.string,
   })).isRequired,
@@ -103,3 +113,5 @@ TrueOrFalseQuestion.propTypes = {
     push: PropTypes.func.isRequired,
   }).isRequired,
 };
+
+export default connect()(TrueOrFalseQuestion);

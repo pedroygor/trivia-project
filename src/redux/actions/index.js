@@ -26,7 +26,6 @@ export const fetchTokenAPI = () => (dispatch) => {
     dispatch(tokenAction(data.token));
     getAsksApi(data.token)
       .then((questions) => {
-        console.log(questions);
         dispatch(saveAsks(questions));
       });
   });

@@ -18,7 +18,6 @@ class Questions extends Component {
 
   render() {
     const { questions } = this.props;
-    console.log(questions);
     const { index } = this.state;
     return (
       <main>

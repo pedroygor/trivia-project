@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { requestShowBtnNext, requestScore } from '../redux/actions';
+import { requestShowBtnNext, requestScore, trueAnswers } from '../redux/actions';
 
 class TrueOrFalseQuestion extends Component {
   state = {
@@ -9,6 +9,7 @@ class TrueOrFalseQuestion extends Component {
     endTime: false,
     disable: false,
     border: false,
+    answers: 1,
   };
 
   componentDidMount() {
@@ -38,7 +39,7 @@ class TrueOrFalseQuestion extends Component {
   submitAnswer = ({ target }) => {
     const { value } = target;
     const { dispatch, question } = this.props;
-    const { timer } = this.state;
+    const { timer, answers } = this.state;
     if (value === question.correct_answer) {
       const baseValue = 10;
       let valueDifficult = 0;
@@ -50,6 +51,8 @@ class TrueOrFalseQuestion extends Component {
         valueDifficult = '1';
       }
       const score = baseValue + (timer * Number(valueDifficult));
+      this.setState({ answers: answers + 1 });
+      dispatch(trueAnswers(answers));
       dispatch(requestScore(score));
     }
     this.setState({ border: true });

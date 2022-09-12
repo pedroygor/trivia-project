@@ -1,6 +1,5 @@
 import { REQUEST_ADD_SCORE } from '../actions/game';
 import { USER } from '../actions/index';
-
 // Esse reducer será responsável por tratar as informações do GAME
 
 const INITIAL_STATE = {

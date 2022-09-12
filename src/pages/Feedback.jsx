@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Header from '../components/Header';
 
 class Feedback extends Component {
   resultFeedback = () => {
@@ -14,6 +15,7 @@ class Feedback extends Component {
     const result = this.resultFeedback();
     return (
       <div>
+        <Header />
         <p data-testid="feedback-text">{result}</p>
       </div>
     );

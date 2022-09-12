@@ -22,7 +22,7 @@ class Questions extends Component {
   };
 
   render() {
-    const { questions, showNext } = this.props;
+    const { questions, showNext, history } = this.props;
     const { index, test } = this.state;
     console.log(test, index);
     return (
@@ -39,7 +39,7 @@ class Questions extends Component {
           <button
             data-testid="btn-next"
             type="button"
-            onClick={ test ? window.location.replace('/feedback') : this.clickState }
+            onClick={ test ? history.push('/feedback') : this.clickState }
           >
             NEXT
           </button>
@@ -50,9 +50,12 @@ class Questions extends Component {
 }
 
 Questions.propTypes = {
-  showNext: PropTypes.bool.isRequired,
-  questions: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-};
+  showNext: PropTypes.bool,
+  questions: PropTypes.arrayOf(PropTypes.object.isRequired),
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }),
+}.isRequired;
 
 const mapStateToProps = (state) => ({
   showNext: state.player.showNext,

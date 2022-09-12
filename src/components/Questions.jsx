@@ -142,6 +142,9 @@ Questions.propTypes = {
     incorrect_answers: PropTypes.shape(PropTypes.object.isRequired),
   }).isRequired,
   dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({

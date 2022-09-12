@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Questions from '../components/Questions';
+// Commit
 
 class Game extends Component {
   componentDidUpdate() {

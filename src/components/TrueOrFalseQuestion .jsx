@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { requestShowBtnNext, requestScore } from '../redux/actions/game';
+// Commit
 
 class TrueOrFalseQuestion extends Component {
   state = {

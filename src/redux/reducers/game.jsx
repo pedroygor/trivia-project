@@ -1,6 +1,6 @@
 import { REQUEST_SHOW_NEXT } from '../actions/game';
 import { SAVE_ASKS } from '../actions';
-
+// Commit
 // Esse reducer será responsável por tratar as informações do GAME
 
 const INITIAL_STATE = {

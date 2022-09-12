@@ -55,11 +55,14 @@ Feedback.propTypes = {
   assertions: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  answersMultiple: state.player.answers,
-  assertions: state.player.assertions,
-  score: state.player.score,
-  answersTrueOrFalse: state.player.trueAnswers,
-});
+const mapStateToProps = (state) => {
+  console.log(state.player);
+  return {
+    answersMultiple: state.player.answers,
+    assertions: state.player.assertions,
+    score: state.player.score,
+    answersTrueOrFalse: state.player.trueAnswers,
+  };
+};
 
 export default connect(mapStateToProps)(Feedback);

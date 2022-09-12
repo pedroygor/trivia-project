@@ -1,70 +1,30 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { requestShowBtnNext, requestScore, trueAnswers } from '../redux/actions';
 
 class TrueOrFalseQuestion extends Component {
-  state = {
-    timer: 30,
-    endTime: false,
-    disable: false,
-    border: false,
-    answers: 1,
-  };
-
-  componentDidMount() {
-    this.setState({ border: false });
-    const velocidade = 1000;
-    setInterval(() => this.setTimer(), velocidade);
+  constructor(props) {
+    super(props);
+    const { shuffleAnswers, question } = this.props;
+    this.state = { answers: shuffleAnswers(question) };
   }
 
-  setTimer = () => {
-    const { timer, endTime } = this.state;
-    const { dispatch } = this.props;
-    if (timer === 1) {
-      const velocidade = 1000;
-      const interval = setInterval(() => this.setTimer(), velocidade);
-      clearInterval(interval);
-      this.setState({ disable: true, endTime: true });
-      dispatch(requestShowBtnNext(true));
-    }
-    if (!endTime) this.setState({ timer: timer - 1 });
-  };
+  componentDidMount() {
+    const { setTimer } = this.props;
+    const velocidade = 1000;
+    setInterval(() => setTimer(), velocidade);
+  }
 
-  shuffleAnswers = (array) => {
-    const number = 0.5;
-    array.sort(() => number - Math.random());
-  };
-
-  submitAnswer = ({ target }) => {
-    const { value } = target;
-    const { dispatch, question } = this.props;
-    const { timer, answers } = this.state;
-    if (value === question.correct_answer) {
-      const baseValue = 10;
-      let valueDifficult = 0;
-      if (question.difficulty === 'hard') {
-        valueDifficult = '3';
-      } if (question.difficulty === 'medium') {
-        valueDifficult = '2';
-      } if (question.difficulty === 'easy') {
-        valueDifficult = '1';
-      }
-      const score = baseValue + (timer * Number(valueDifficult));
-      this.setState({ answers: answers + 1 });
-      dispatch(trueAnswers(answers));
-      dispatch(requestScore(score));
+  componentDidUpdate(prevProps) {
+    const { changeAnswers, question, shuffleAnswers } = this.props;
+    if (changeAnswers !== prevProps.changeAnswers) {
+      this.setState({ answers: shuffleAnswers(question) });
     }
-    this.setState({ border: true });
-    dispatch(requestShowBtnNext(true));
-  };
+  }
 
   render() {
-    const { timer, disable, border } = this.state;
-    const { question } = this.props;
-    const arrayAnswers = [question.correct_answer, ...question.incorrect_answers];
-    this.shuffleAnswers(arrayAnswers);
-    console.log(arrayAnswers);
+    const { timer, disable, border, submitAnswer, question } = this.props;
+    const { answers } = this.state;
     return (
       question && (
         <fieldset>
@@ -77,7 +37,7 @@ class TrueOrFalseQuestion extends Component {
           <div>{question.difficulty}</div>
           <div data-testid="question-text">{question.question}</div>
           <div data-testid="answer-options">
-            {arrayAnswers.map((element, index) => {
+            {answers.map((element, index) => {
               if (element === question.correct_answer) {
                 return (
                   <button
@@ -87,7 +47,7 @@ class TrueOrFalseQuestion extends Component {
                     type="button"
                     value={ element }
                     disabled={ disable }
-                    onClick={ this.submitAnswer }
+                    onClick={ submitAnswer }
                   >
                     {element}
                   </button>
@@ -101,7 +61,7 @@ class TrueOrFalseQuestion extends Component {
                   type="button"
                   value={ element }
                   disabled={ disable }
-                  onClick={ this.submitAnswer }
+                  onClick={ submitAnswer }
                 >
                   {element}
                 </button>
@@ -115,7 +75,13 @@ class TrueOrFalseQuestion extends Component {
 }
 
 TrueOrFalseQuestion.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  changeAnswers: PropTypes.bool.isRequired,
+  shuffleAnswers: PropTypes.func.isRequired,
+  timer: PropTypes.number.isRequired,
+  setTimer: PropTypes.func.isRequired,
+  border: PropTypes.bool.isRequired,
+  disable: PropTypes.bool.isRequired,
+  submitAnswer: PropTypes.func.isRequired,
   question: PropTypes.shape({
     category: PropTypes.string,
     difficulty: PropTypes.string,

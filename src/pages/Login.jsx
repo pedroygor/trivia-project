@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { fetchTokenAPI, requestUser } from '../redux/actions';
-// Commit
 
 class Login extends Component {
   constructor() {

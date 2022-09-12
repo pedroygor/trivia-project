@@ -3,6 +3,8 @@ import { getAsksApi, getTokenApi } from '../../services/servicesApi';
 export const USER = 'USER';
 export const TOKEN = 'TOKEN';
 export const SAVE_ASKS = 'SAVE_ASKS';
+export const REQUEST_ADD_SCORE = 'REQUEST_ADD_SCORE';
+export const REQUEST_SHOW_NEXT = 'REQUEST_SHOW_NEXT';
 
 export const requestUser = (user) => ({
   type: USER,
@@ -30,3 +32,13 @@ export const fetchTokenAPI = () => (dispatch) => {
       });
   });
 };
+
+export const requestScore = (score) => ({
+  type: REQUEST_ADD_SCORE,
+  score,
+});
+
+export const requestShowBtnNext = (bool) => ({
+  type: REQUEST_SHOW_NEXT,
+  bool,
+});

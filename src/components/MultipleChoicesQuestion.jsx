@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { requestShowBtnNext, requestScore } from '../redux/actions/game';
+import { requestShowBtnNext, requestScore } from '../redux/actions';
 
 class MultipleChoicesQuestion extends Component {
   state = {
@@ -49,14 +49,14 @@ class MultipleChoicesQuestion extends Component {
       if (question.difficulty === 'hard') {
         valueDifficult = '3';
       }
-      if (question.difficulty === 'merdium') {
+      if (question.difficulty === 'medium') {
         valueDifficult = '2';
       }
       if (question.difficulty === 'easy') {
         valueDifficult = '1';
       }
-      const result = baseValue + (timer * Number(valueDifficult));
-      dispatch(requestScore(result));
+      const score = baseValue + (timer * Number(valueDifficult));
+      dispatch(requestScore(score));
     }
     this.setState({ border: true });
     dispatch(requestShowBtnNext(true));
@@ -73,26 +73,15 @@ class MultipleChoicesQuestion extends Component {
         { question && (
           <div>
             <fieldset>
-              <div data-testid="question-category">
-                Categoria:
-                {question.category}
-              </div>
-              <div>
-                Dificuldade:
-                {' '}
-                {question.difficulty}
-              </div>
-              <div data-testid="question-text">
-                Pergunta:
-                {' '}
-                {question.question}
-              </div>
+              <div data-testid="question-category">{question.category}</div>
+              <div>{question.difficulty}</div>
+              <div data-testid="question-text">{question.question}</div>
               <div data-testid="answer-options">
                 {shuffleArray.map((element, index) => {
                   if (element === question.correct_answer) {
                     return (
                       <button
-                        key={ element }
+                        key="correct-answer"
                         className={ border && 'correct-answer' }
                         data-testid="correct-answer"
                         type="button"

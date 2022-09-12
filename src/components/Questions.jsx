@@ -49,8 +49,8 @@ Questions.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  showNext: state.game.showNext,
-  questions: state.game.questions.results,
+  showNext: state.player.showNext,
+  questions: state.player.questions.results,
 });
 
 export default connect(mapStateToProps)(Questions);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { requestShowBtnNext, requestScore } from '../redux/actions/game';
+import { connect } from 'react-redux';
+import { requestShowBtnNext, requestScore } from '../redux/actions';
 
 class TrueOrFalseQuestion extends Component {
   state = {
@@ -44,13 +44,13 @@ class TrueOrFalseQuestion extends Component {
       let valueDifficult = 0;
       if (question.difficulty === 'hard') {
         valueDifficult = '3';
-      } if (question.difficulty === 'merdium') {
+      } if (question.difficulty === 'medium') {
         valueDifficult = '2';
       } if (question.difficulty === 'easy') {
         valueDifficult = '1';
       }
-      const result = baseValue + (timer * Number(valueDifficult));
-      dispatch(requestScore(result));
+      const score = baseValue + (timer * Number(valueDifficult));
+      dispatch(requestScore(score));
     }
     this.setState({ border: true });
     dispatch(requestShowBtnNext(true));
@@ -70,15 +70,9 @@ class TrueOrFalseQuestion extends Component {
             { timer }
             segundos
           </div>
-          <div data-testid="question-category">
-            {question.category}
-          </div>
-          <div>
-            {question.difficulty}
-          </div>
-          <div data-testid="question-text">
-            {question.question}
-          </div>
+          <div data-testid="question-category">{question.category}</div>
+          <div>{question.difficulty}</div>
+          <div data-testid="question-text">{question.question}</div>
           <div data-testid="answer-options">
             {arrayAnswers.map((element, index) => {
               if (element === question.correct_answer) {

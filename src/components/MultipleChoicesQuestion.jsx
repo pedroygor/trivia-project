@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { requestShowBtnNext, requestScore } from '../redux/actions/game';
+import { requestShowBtnNext, requestScore } from '../redux/actions';
 
 class MultipleChoicesQuestion extends Component {
   constructor() {
@@ -47,26 +47,26 @@ class MultipleChoicesQuestion extends Component {
       if (question.difficulty === 'hard') {
         valueDifficult = '3';
       }
-      if (question.difficulty === 'merdium') {
+      if (question.difficulty === 'medium') {
         valueDifficult = '2';
       }
       if (question.difficulty === 'easy') {
         valueDifficult = '1';
       }
-      const result = baseValue + (timer * Number(valueDifficult));
-      dispatch(requestScore(result));
+      const score = baseValue + (timer * Number(valueDifficult));
+      dispatch(requestScore(score));
     }
     this.setState({ border: true });
     dispatch(requestShowBtnNext(true));
   };
 
   render() {
-    const { timer, disable, border, redirect } = this.state;
-    console.log(redirect);
+    const { timer, disable, border } = this.state;
+
     const { question } = this.props;
     const arrayAnswers = [question.correct_answer, ...question.incorrect_answers];
     this.shuffleAnswers(arrayAnswers);
-    console.log(arrayAnswers);
+
     return (
       <div>
         Tempo para responder:
@@ -75,21 +75,17 @@ class MultipleChoicesQuestion extends Component {
         { question && (
           <div>
             <fieldset>
-              <div data-testid="question-category">
-                {question.category}
-              </div>
-              <div>
-                {question.difficulty}
-              </div>
-              <div data-testid="question-text">
-                {question.question}
-              </div>
+
+              <div data-testid="question-category">{question.category}</div>
+              <div>{question.difficulty}</div>
+              <div data-testid="question-text">{question.question}</div>
+
               <div data-testid="answer-options">
                 {arrayAnswers.map((element, index) => {
                   if (element === question.correct_answer) {
                     return (
                       <button
-                        key={ element }
+                        key="correct-answer"
                         className={ border && 'correct-answer' }
                         data-testid="correct-answer"
                         type="button"

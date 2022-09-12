@@ -1,5 +1,8 @@
 // import { REQUEST_ADD_SCORE, REQUEST_SHOW_NEXT } from '../actions/game';
-import { USER, SAVE_ASKS, REQUEST_ADD_SCORE, REQUEST_SHOW_NEXT } from '../actions/index';
+import { USER, SAVE_ASKS,
+  REQUEST_ADD_SCORE,
+  REQUEST_SHOW_NEXT,
+  REQUEST_CORRECT_ANSWERS, REQUEST_TRUE_ANSWERS } from '../actions/index';
 // Esse reducer será responsável por tratar as informações do GAME
 
 const INITIAL_STATE = {
@@ -9,6 +12,8 @@ const INITIAL_STATE = {
   gravatarEmail: '',
   questions: [],
   showNext: false,
+  answers: 0,
+  trueAnswers: 0,
 };
 
 function gameReducer(state = INITIAL_STATE, action) {
@@ -33,6 +38,16 @@ function gameReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       showNext: action.bool,
+    };
+  case REQUEST_CORRECT_ANSWERS:
+    return {
+      ...state,
+      answers: Number(action.value),
+    };
+  case REQUEST_TRUE_ANSWERS:
+    return {
+      ...state,
+      trueAnswers: Number(action.value),
     };
   default:
     return state;

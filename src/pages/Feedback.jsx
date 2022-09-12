@@ -1,25 +1,42 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 
 class Feedback extends Component {
   resultFeedback = () => {
-    const value = 3;
+    const { answersMultiple, answersTrueOrFalse } = this.props;
+    console.log(answersMultiple, answersTrueOrFalse);
+    const result = answersMultiple + answersTrueOrFalse;
     const beBetter = 3;
-    if (value <= beBetter) {
+    console.log(result);
+    if (result === beBetter || result > beBetter) {
+      return 'Well Done!';
+    }
+    if (result < beBetter) {
       return 'Could be better...';
     }
-    return 'Well Done!';
   };
 
   render() {
-    const result = this.resultFeedback();
+    const resultFeedback = this.resultFeedback();
     return (
       <div>
         <Header />
-        <p data-testid="feedback-text">{result}</p>
+        <p data-testid="feedback-text">{resultFeedback}</p>
       </div>
     );
   }
 }
 
-export default Feedback;
+Feedback.propTypes = {
+  answersMultiple: PropTypes.number.isRequired,
+  answersTrueOrFalse: PropTypes.number.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  answersMultiple: state.player.answers,
+  answersTrueOrFalse: state.player.trueAnswers,
+});
+
+export default connect(mapStateToProps)(Feedback);

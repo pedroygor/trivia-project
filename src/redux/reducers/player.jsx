@@ -8,7 +8,7 @@ import { USER, SAVE_ASKS,
 const INITIAL_STATE = {
   score: 0,
   name: '',
-  assertion: '',
+  assertions: 0,
   gravatarEmail: '',
   questions: [],
   showNext: false,
@@ -43,11 +43,13 @@ function gameReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       answers: Number(action.value),
+      assertions: action.value + state.trueAnswers,
     };
   case REQUEST_TRUE_ANSWERS:
     return {
       ...state,
       trueAnswers: Number(action.value),
+      assertions: action.value + state.answers,
     };
   default:
     return state;

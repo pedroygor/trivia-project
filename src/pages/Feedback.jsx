@@ -18,6 +18,11 @@ class Feedback extends Component {
     }
   };
 
+  handleClick = () => {
+    const { history } = this.props;
+    history.push('/');
+  };
+
   render() {
     const { score, assertions } = this.props;
     console.log(assertions);
@@ -28,12 +33,22 @@ class Feedback extends Component {
         <p data-testid="feedback-total-score">{score}</p>
         <p data-testid="feedback-text">{resultFeedback}</p>
         <h1 data-testid="feedback-total-question">{assertions}</h1>
+        <button
+          type="button"
+          data-testid="btn-play-again"
+          onClick={ this.handleClick }
+        >
+          Play Again
+        </button>
       </div>
     );
   }
 }
 
 Feedback.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   answersMultiple: PropTypes.number.isRequired,
   answersTrueOrFalse: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,

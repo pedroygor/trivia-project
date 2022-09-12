@@ -12,7 +12,7 @@ class TrueOrFalseQuestion extends Component {
   };
 
   componentDidMount() {
-  this.setState({ border: false });
+    this.setState({ border: false });
     const velocidade = 1000;
     setInterval(() => this.setTimer(), velocidade);
   }

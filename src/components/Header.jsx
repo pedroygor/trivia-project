@@ -35,16 +35,13 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  score: PropTypes.number.isRequired,
-  user: PropTypes.shape({
-    name: PropTypes.string,
-    email: PropTypes.string,
-  }).isRequired,
-};
+  score: PropTypes.number,
+  user: PropTypes.shape(PropTypes.object.isRequired),
+}.isRequired;
 
 const mapStateToProps = (state) => ({
-  score: state.game.score,
-  user: state.token,
+  score: state.player.score,
+  user: state.player,
 });
 
 export default connect(mapStateToProps)(Header);

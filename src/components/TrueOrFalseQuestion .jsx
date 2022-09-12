@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { requestShowBtnNext } from '../redux/actions/game';
+import { requestShowBtnNext, requestScore } from '../redux/actions/game';
 
 class TrueOrFalseQuestion extends Component {
   state = {
     timer: 30,
     endTime: false,
     disable: false,
+    border: false,
     shuffleArray: [],
   };
 
@@ -37,13 +38,29 @@ class TrueOrFalseQuestion extends Component {
     this.setState({ shuffleArray: arrayAnswers.sort(() => number - Math.random()) });
   };
 
-  submitAnswer = () => {
-    const { dispatch } = this.props;
+  submitAnswer = ({ target }) => {
+    const { value } = target;
+    const { dispatch, question } = this.props;
+    const { timer } = this.state;
+    if (value === question.correct_answer) {
+      const baseValue = 10;
+      let valueDifficult = 0;
+      if (question.difficulty === 'hard') {
+        valueDifficult = '3';
+      } if (question.difficulty === 'merdium') {
+        valueDifficult = '2';
+      } if (question.difficulty === 'easy') {
+        valueDifficult = '1';
+      }
+      const result = baseValue + (timer * Number(valueDifficult));
+      dispatch(requestScore(result));
+    }
+    this.setState({ border: true });
     dispatch(requestShowBtnNext(true));
   };
 
   render() {
-    const { timer, disable, shuffleArray } = this.state;
+    const { timer, disable, shuffleArray, border } = this.state;
     const { question } = this.props;
     return (
       question && (
@@ -74,9 +91,10 @@ class TrueOrFalseQuestion extends Component {
                 return (
                   <button
                     key="correct-answer"
-                    className="correct-answer"
+                    className={ border && 'correct-answer' }
                     data-testid="correct-answer"
                     type="button"
+                    value={ element }
                     disabled={ disable }
                     onClick={ this.submitAnswer }
                   >
@@ -87,9 +105,10 @@ class TrueOrFalseQuestion extends Component {
               return (
                 <button
                   key="wrong-answer"
-                  className="wrong-answer"
+                  className={ border && 'wrong-answer' }
                   data-testid={ `wrong-answer-${index}` }
                   type="button"
+                  value={ element }
                   disabled={ disable }
                   onClick={ this.submitAnswer }
                 >
@@ -106,9 +125,13 @@ class TrueOrFalseQuestion extends Component {
 
 TrueOrFalseQuestion.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  question: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.string,
-  })).isRequired,
+  question: PropTypes.shape({
+    category: PropTypes.string,
+    difficulty: PropTypes.string,
+    question: PropTypes.string,
+    correct_answer: PropTypes.shape(PropTypes.object.isRequired),
+    incorrect_answers: PropTypes.shape(PropTypes.object.isRequired),
+  }).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,

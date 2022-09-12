@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { fetchTokenAPI, requestUser } from '../redux/actions';
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       username: '',
       email: '',
@@ -18,12 +18,10 @@ class Login extends Component {
     this.setState({ [name]: value });
   };
 
-  handClickApi = (event) => {
-    event.preventDefault();
-    const { tokenPlayer, userRequest, history } = this.props;
-    const { username, email } = this.state;
-    tokenPlayer();
-    userRequest(username, email);
+  handClickApi = () => {
+    const { dispatch, history } = this.props;
+    dispatch(fetchTokenAPI());
+    dispatch(requestUser(this.state));
     history.push('/game');
   };
 
@@ -58,7 +56,7 @@ class Login extends Component {
             />
           </label>
           <button
-            type="submit"
+            type="button"
             data-testid="btn-play"
             disabled={ !username || !email }
             onClick={ this.handClickApi }
@@ -80,16 +78,10 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  userRequest: PropTypes.func.isRequired,
-  tokenPlayer: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  tokenPlayer: () => dispatch(fetchTokenAPI()),
-  userRequest: (username, email) => dispatch(requestUser(username, email)),
-});
-
-export default connect(null, mapDispatchToProps)(Login);
+export default connect()(Login);

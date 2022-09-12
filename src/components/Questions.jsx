@@ -42,15 +42,15 @@ class Questions extends Component {
     );
   }
 }
+
 Questions.propTypes = {
   showNext: PropTypes.bool.isRequired,
   questions: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
 };
+
 const mapStateToProps = (state) => ({
   showNext: state.game.showNext,
-  responseCode: state.game.responseCode,
   questions: state.game.questions.results,
-  token: state.token.token,
 });
 
 export default connect(mapStateToProps)(Questions);

@@ -23,7 +23,7 @@ export const saveAsks = (asks) => ({
 export const fetchTokenAPI = () => (dispatch) => {
   getTokenApi().then((data) => {
     console.log(data.token);
-    localStorage.setItem('token', JSON.stringify(data.token));
+    localStorage.setItem('token', data.token);
     dispatch(tokenAction(data.token));
     getAsksApi(data.token)
       .then((questions) => {

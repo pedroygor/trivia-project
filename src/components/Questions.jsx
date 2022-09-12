@@ -17,7 +17,7 @@ class Questions extends Component {
   };
 
   render() {
-    const { questions } = this.props;
+    const { questions, showNext } = this.props;
     const { index } = this.state;
     return (
       <main>
@@ -29,26 +29,28 @@ class Questions extends Component {
                 : <TrueOrFalseQuestion question={ questions[index] } />}
             </div>
           ) }
-        <button
-          data-testid="btn-next"
-          type="button"
-          onClick={ this.clickState }
-        >
-          Next
-        </button>
+        { showNext && (
+          <button
+            data-testid="btn-next"
+            type="button"
+            onClick={ this.clickState }
+          >
+            Next
+          </button>
+        ) }
       </main>
     );
   }
 }
+
 Questions.propTypes = {
-  questions: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.string,
-  })).isRequired,
+  showNext: PropTypes.bool.isRequired,
+  questions: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
 };
+
 const mapStateToProps = (state) => ({
-  responseCode: state.game.responseCode,
+  showNext: state.game.showNext,
   questions: state.game.questions.results,
-  token: state.token.token,
 });
 
 export default connect(mapStateToProps)(Questions);

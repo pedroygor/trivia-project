@@ -1,104 +1,141 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { requestShowBtnNext, requestScore } from '../redux/actions/game';
 
 class MultipleChoicesQuestion extends Component {
   state = {
     timer: 30,
+    endTime: false,
     disable: false,
+    border: false,
+    shuffleArray: [],
   };
 
   componentDidMount() {
-    this.setTimer();
+    this.setState({ border: false });
+    this.shuffleAnswers();
+    const velocidade = 1000;
+    setInterval(() => this.setTimer(), velocidade);
   }
 
   setTimer = () => {
-    const trinta = 30;
-    let timer = trinta;
-    const velocidade = 1000;
-    const tempo = 30000;
-    const intervalo = setInterval(() => {
-      console.log(timer);
-      timer -= 1;
-    }, velocidade);
-    setTimeout(() => {
-      clearInterval(intervalo);
-      this.setState({ disable: true });
-    }, tempo);
+    const { timer, endTime } = this.state;
+    const { dispatch } = this.props;
+    if (timer === 1) {
+      const velocidade = 1000;
+      const interval = setInterval(() => this.setTimer(), velocidade);
+      clearInterval(interval);
+      this.setState({ disable: true, endTime: true });
+      dispatch(requestShowBtnNext(true));
+    }
+    if (!endTime) this.setState({ timer: timer - 1 });
   };
 
-  shuffleAnswers = (array) => {
+  shuffleAnswers = () => {
+    const { question } = this.props;
+    const arrayAnswers = [question.correct_answer, ...question.incorrect_answers];
     const number = 0.5;
-    array.sort(() => number - Math.random());
+    this.setState({ shuffleArray: arrayAnswers.sort(() => number - Math.random()) });
+  };
+
+  submitAnswer = ({ target }) => {
+    const { value } = target;
+    const { dispatch, question } = this.props;
+    const { timer } = this.state;
+    if (value === question.correct_answer) {
+      const baseValue = 10;
+      let valueDifficult = 0;
+      if (question.difficulty === 'hard') {
+        valueDifficult = '3';
+      }
+      if (question.difficulty === 'merdium') {
+        valueDifficult = '2';
+      }
+      if (question.difficulty === 'easy') {
+        valueDifficult = '1';
+      }
+      const result = baseValue + (timer * Number(valueDifficult));
+      dispatch(requestScore(result));
+    }
+    this.setState({ border: true });
+    dispatch(requestShowBtnNext(true));
   };
 
   render() {
-    const { timer, disable } = this.state;
+    const { timer, disable, shuffleArray, border } = this.state;
     const { question } = this.props;
-    const arrayAnswers = [question.correct_answer, ...question.incorrect_answers];
-    this.shuffleAnswers(arrayAnswers);
     return (
-      question && (
-        <div>
+      <div>
+        Tempo para responder:
+        { timer }
+        segundos
+        { question && (
           <div>
-            Tempo para responder:
-            { timer }
-            segundos
-          </div>
-          <fieldset>
-            <div data-testid="question-category">
-              Categoria:
-              {question.category}
-            </div>
-            <div>
-              Dificuldade:
-              {' '}
-              {question.difficulty}
-            </div>
-            <div data-testid="question-text">
-              Pergunta:
-              {' '}
-              {question.question}
-            </div>
-            <div data-testid="answer-options">
-              {arrayAnswers.map((element, index) => {
-                if (element === question.correct_answer) {
+            <fieldset>
+              <div data-testid="question-category">
+                Categoria:
+                {question.category}
+              </div>
+              <div>
+                Dificuldade:
+                {' '}
+                {question.difficulty}
+              </div>
+              <div data-testid="question-text">
+                Pergunta:
+                {' '}
+                {question.question}
+              </div>
+              <div data-testid="answer-options">
+                {shuffleArray.map((element, index) => {
+                  if (element === question.correct_answer) {
+                    return (
+                      <button
+                        key={ element }
+                        className={ border && 'correct-answer' }
+                        data-testid="correct-answer"
+                        type="button"
+                        value={ element }
+                        disabled={ disable }
+                        onClick={ this.submitAnswer }
+                      >
+                        {element}
+                      </button>
+                    );
+                  }
                   return (
                     <button
                       key={ element }
-                      className="correct-answer"
-                      data-testid="correct-answer"
+                      className={ border && 'wrong-answer' }
+                      data-testid={ `wrong-answer-${index}` }
                       type="button"
+                      value={ element }
                       disabled={ disable }
                       onClick={ this.submitAnswer }
                     >
                       {element}
                     </button>
                   );
-                }
-                return (
-                  <button
-                    key={ element }
-                    className="wrong-answer"
-                    data-testid={ `wrong-answer-${index}` }
-                    type="button"
-                    disabled={ disable }
-                    onClick={ this.submitAnswer }
-                  >
-                    {element}
-                  </button>
-                );
-              })}
-            </div>
-          </fieldset>
-        </div>
-      ));
+                })}
+              </div>
+            </fieldset>
+          </div>
+        ) }
+      </div>
+    );
   }
 }
 
 MultipleChoicesQuestion.propTypes = {
-  question: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.string,
-  })).isRequired,
+  dispatch: PropTypes.func.isRequired,
+  question: PropTypes.shape({
+    category: PropTypes.string,
+    difficulty: PropTypes.string,
+    question: PropTypes.string,
+    correct_answer: PropTypes.shape(PropTypes.object.isRequired),
+    incorrect_answers: PropTypes.shape(PropTypes.object.isRequired),
+  }).isRequired,
 };
 
-export default MultipleChoicesQuestion;
+export default connect()(MultipleChoicesQuestion);

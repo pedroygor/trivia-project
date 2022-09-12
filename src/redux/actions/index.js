@@ -4,10 +4,9 @@ export const USER = 'USER';
 export const TOKEN = 'TOKEN';
 export const SAVE_ASKS = 'SAVE_ASKS';
 
-export const requestUser = (name, email) => ({
+export const requestUser = (user) => ({
   type: USER,
-  name,
-  email,
+  user,
 });
 
 export const tokenAction = (token) => ({
@@ -22,7 +21,8 @@ export const saveAsks = (asks) => ({
 
 export const fetchTokenAPI = () => (dispatch) => {
   getTokenApi().then((data) => {
-    localStorage.setItem('token', data.token);
+    console.log(data.token);
+    localStorage.setItem('token', JSON.stringify(data.token));
     dispatch(tokenAction(data.token));
     getAsksApi(data.token)
       .then((questions) => {

@@ -9,12 +9,10 @@ class TrueOrFalseQuestion extends Component {
     endTime: false,
     disable: false,
     border: false,
-    shuffleArray: [],
   };
 
   componentDidMount() {
-    this.setState({ border: false });
-    this.shuffleAnswers();
+  this.setState({ border: false });
     const velocidade = 1000;
     setInterval(() => this.setTimer(), velocidade);
   }
@@ -32,11 +30,9 @@ class TrueOrFalseQuestion extends Component {
     if (!endTime) this.setState({ timer: timer - 1 });
   };
 
-  shuffleAnswers = () => {
-    const { question } = this.props;
-    const arrayAnswers = [question.correct_answer, ...question.incorrect_answers];
+  shuffleAnswers = (array) => {
     const number = 0.5;
-    this.setState({ shuffleArray: arrayAnswers.sort(() => number - Math.random()) });
+    array.sort(() => number - Math.random());
   };
 
   submitAnswer = ({ target }) => {
@@ -61,8 +57,11 @@ class TrueOrFalseQuestion extends Component {
   };
 
   render() {
-    const { timer, disable, shuffleArray, border } = this.state;
+    const { timer, disable, border } = this.state;
     const { question } = this.props;
+    const arrayAnswers = [question.correct_answer, ...question.incorrect_answers];
+    this.shuffleAnswers(arrayAnswers);
+    console.log(arrayAnswers);
     return (
       question && (
         <fieldset>
@@ -75,7 +74,7 @@ class TrueOrFalseQuestion extends Component {
           <div>{question.difficulty}</div>
           <div data-testid="question-text">{question.question}</div>
           <div data-testid="answer-options">
-            {shuffleArray.map((element, index) => {
+            {arrayAnswers.map((element, index) => {
               if (element === question.correct_answer) {
                 return (
                   <button
@@ -93,7 +92,7 @@ class TrueOrFalseQuestion extends Component {
               }
               return (
                 <button
-                  key="wrong-answer"
+                  key={ index }
                   className={ border && 'wrong-answer' }
                   data-testid={ `wrong-answer-${index}` }
                   type="button"

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { requestShowBtnNext, requestScore } from '../redux/actions/game';
 
 class TrueOrFalseQuestion extends Component {
@@ -9,11 +9,10 @@ class TrueOrFalseQuestion extends Component {
     endTime: false,
     disable: false,
     border: false,
-    shuffleArray: [],
   };
 
   componentDidMount() {
-    this.shuffleAnswers();
+    this.setState({ border: false });
     const velocidade = 1000;
     setInterval(() => this.setTimer(), velocidade);
   }
@@ -31,11 +30,9 @@ class TrueOrFalseQuestion extends Component {
     if (!endTime) this.setState({ timer: timer - 1 });
   };
 
-  shuffleAnswers = () => {
-    const { question } = this.props;
-    const arrayAnswers = [question.correct_answer, ...question.incorrect_answers];
+  shuffleAnswers = (array) => {
     const number = 0.5;
-    this.setState({ shuffleArray: arrayAnswers.sort(() => number - Math.random()) });
+    array.sort(() => number - Math.random());
   };
 
   submitAnswer = ({ target }) => {
@@ -60,8 +57,11 @@ class TrueOrFalseQuestion extends Component {
   };
 
   render() {
-    const { timer, disable, shuffleArray, border } = this.state;
+    const { timer, disable, border } = this.state;
     const { question } = this.props;
+    const arrayAnswers = [question.correct_answer, ...question.incorrect_answers];
+    this.shuffleAnswers(arrayAnswers);
+    console.log(arrayAnswers);
     return (
       question && (
         <fieldset>
@@ -71,22 +71,16 @@ class TrueOrFalseQuestion extends Component {
             segundos
           </div>
           <div data-testid="question-category">
-            Categoria:
-            {' '}
             {question.category}
           </div>
           <div>
-            Dificuldade:
-            {' '}
             {question.difficulty}
           </div>
           <div data-testid="question-text">
-            Pergunta:
-            {' '}
             {question.question}
           </div>
           <div data-testid="answer-options">
-            {shuffleArray.map((element, index) => {
+            {arrayAnswers.map((element, index) => {
               if (element === question.correct_answer) {
                 return (
                   <button
@@ -104,7 +98,7 @@ class TrueOrFalseQuestion extends Component {
               }
               return (
                 <button
-                  key="wrong-answer"
+                  key={ index }
                   className={ border && 'wrong-answer' }
                   data-testid={ `wrong-answer-${index}` }
                   type="button"

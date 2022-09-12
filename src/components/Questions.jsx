@@ -7,10 +7,15 @@ import TrueOrFalseQuestion from './TrueOrFalseQuestion ';
 class Questions extends Component {
   state = {
     index: 0,
+    test: false,
   };
 
   clickState = () => {
+    const MAX = 4;
     const { index } = this.state;
+    if (index === MAX) {
+      return this.setState({ test: true });
+    }
     this.setState({
       index: index + 1,
     });
@@ -18,7 +23,8 @@ class Questions extends Component {
 
   render() {
     const { questions, showNext } = this.props;
-    const { index } = this.state;
+    const { index, test } = this.state;
+    console.log(test, index);
     return (
       <main>
         { questions && questions.length > 0
@@ -33,9 +39,9 @@ class Questions extends Component {
           <button
             data-testid="btn-next"
             type="button"
-            onClick={ this.clickState }
+            onClick={ test ? window.location.replace('/feedback') : this.clickState }
           >
-            Next
+            NEXT
           </button>
         ) }
       </main>

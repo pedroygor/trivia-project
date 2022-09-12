@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { requestShowBtnNext, requestScore } from '../redux/actions/game';
 
 class MultipleChoicesQuestion extends Component {
-  state = {
-    timer: 30,
-    endTime: false,
-    disable: false,
-    border: false,
-    shuffleArray: [],
-  };
+  constructor() {
+    super();
+    this.state = {
+      timer: 30,
+      endTime: false,
+      disable: false,
+      border: false,
+    };
+  }
 
   componentDidMount() {
-    this.setState({ border: false });
-    this.shuffleAnswers();
     const velocidade = 1000;
     setInterval(() => this.setTimer(), velocidade);
   }
@@ -32,11 +32,9 @@ class MultipleChoicesQuestion extends Component {
     if (!endTime) this.setState({ timer: timer - 1 });
   };
 
-  shuffleAnswers = () => {
-    const { question } = this.props;
-    const arrayAnswers = [question.correct_answer, ...question.incorrect_answers];
+  shuffleAnswers = (array) => {
     const number = 0.5;
-    this.setState({ shuffleArray: arrayAnswers.sort(() => number - Math.random()) });
+    array.sort(() => number - Math.random());
   };
 
   submitAnswer = ({ target }) => {
@@ -63,8 +61,12 @@ class MultipleChoicesQuestion extends Component {
   };
 
   render() {
-    const { timer, disable, shuffleArray, border } = this.state;
+    const { timer, disable, border, redirect } = this.state;
+    console.log(redirect);
     const { question } = this.props;
+    const arrayAnswers = [question.correct_answer, ...question.incorrect_answers];
+    this.shuffleAnswers(arrayAnswers);
+    console.log(arrayAnswers);
     return (
       <div>
         Tempo para responder:
@@ -74,21 +76,16 @@ class MultipleChoicesQuestion extends Component {
           <div>
             <fieldset>
               <div data-testid="question-category">
-                Categoria:
                 {question.category}
               </div>
               <div>
-                Dificuldade:
-                {' '}
                 {question.difficulty}
               </div>
               <div data-testid="question-text">
-                Pergunta:
-                {' '}
                 {question.question}
               </div>
               <div data-testid="answer-options">
-                {shuffleArray.map((element, index) => {
+                {arrayAnswers.map((element, index) => {
                   if (element === question.correct_answer) {
                     return (
                       <button
@@ -106,7 +103,7 @@ class MultipleChoicesQuestion extends Component {
                   }
                   return (
                     <button
-                      key={ element }
+                      key={ index }
                       className={ border && 'wrong-answer' }
                       data-testid={ `wrong-answer-${index}` }
                       type="button"

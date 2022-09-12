@@ -61,12 +61,12 @@ class MultipleChoicesQuestion extends Component {
   };
 
   render() {
-    const { timer, disable, border, redirect } = this.state;
+    const { timer, disable, border } = this.state;
 
     const { question } = this.props;
     const arrayAnswers = [question.correct_answer, ...question.incorrect_answers];
     this.shuffleAnswers(arrayAnswers);
- 
+
     return (
       <div>
         Tempo para responder:

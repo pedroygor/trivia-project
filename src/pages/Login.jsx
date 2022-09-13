@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { fetchTokenAPI, requestUser } from '../redux/actions';
+import { fetchTokenAPI, requestUser, resetGame } from '../redux/actions';
 
 class Login extends Component {
   constructor() {
@@ -11,6 +11,11 @@ class Login extends Component {
       username: '',
       email: '',
     };
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(resetGame());
   }
 
   handleChange = ({ target }) => {

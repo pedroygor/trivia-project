@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import md5 from 'crypto-js/md5';
-import Header from '../components/Header';
+import Header from '../components/Header/Header';
 import { savePlayers } from '../redux/actions';
 
 class Feedback extends Component {

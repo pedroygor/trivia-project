@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../../images/logo.svg';
 import { fetchTokenAPI, requestUser, resetGame } from '../../redux/actions';
-import { FormLogin, LoginContainer } from './LoginStyle';
+import {
+  FormLogin,
+  LoginContainer,
+  LinksContainer,
+  ButtonPlay,
+  ButtonLink,
+} from './LoginStyle';
 
 class Login extends Component {
   constructor() {
@@ -41,7 +47,7 @@ class Login extends Component {
           <label htmlFor="email">
             <input
               data-testid="input-gravatar-email"
-              placeholder="Qual é o seu e-mail do gravatar?"
+              placeholder="Qual é o seu e-mail?"
               type="email"
               name="email"
               id="email"
@@ -62,30 +68,33 @@ class Login extends Component {
             />
           </label>
 
-          <button
+          <ButtonPlay
             type="button"
             data-testid="btn-play"
             disabled={ !username || !email }
             onClick={ this.handClickApi }
           >
             Play
-          </button>
-          {/* <Link to="/config">
-            <button
-              type="button"
-              data-testid="btn-settings"
-            >
-              Settings
-            </button>
-          </Link>
-          <Link to="/ranking">
-            <button
-              type="button"
-              data-testid="btn-ranking"
-            >
-              Ranking
-            </button>
-          </Link> */}
+          </ButtonPlay>
+          <LinksContainer>
+            <Link to="/config">
+              <ButtonLink
+                type="button"
+                data-testid="btn-settings"
+              >
+                Settings
+              </ButtonLink>
+            </Link>
+            <Link to="/ranking">
+              <ButtonLink
+                type="button"
+                data-testid="btn-ranking"
+              >
+                Ranking
+              </ButtonLink>
+            </Link>
+          </LinksContainer>
+
         </FormLogin>
       </LoginContainer>
     );

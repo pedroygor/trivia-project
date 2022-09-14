@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { fetchTokenAPI, requestUser, resetGame } from '../redux/actions';
+// import { Link } from 'react-router-dom';
+import logo from '../../images/logo.svg';
+import { fetchTokenAPI, requestUser, resetGame } from '../../redux/actions';
+import { FormLogin, LoginContainer } from './LoginStyle';
 
 class Login extends Component {
   constructor() {
@@ -33,26 +35,13 @@ class Login extends Component {
   render() {
     const { username, email } = this.state;
     return (
-      <div>
-        <form>
-          <label htmlFor="username">
-            Username
-            <input
-              type="text"
-              name="username"
-              id="username"
-              placeholder="Username"
-              data-testid="input-player-name"
-              onChange={ this.handleChange }
-              value={ username }
-            />
-          </label>
-
+      <LoginContainer>
+        <img src={ logo } alt="logotipo" />
+        <FormLogin>
           <label htmlFor="email">
-            Email
             <input
               data-testid="input-gravatar-email"
-              placeholder="Email"
+              placeholder="Qual é o seu e-mail do gravatar?"
               type="email"
               name="email"
               id="email"
@@ -60,6 +49,19 @@ class Login extends Component {
               value={ email }
             />
           </label>
+
+          <label htmlFor="username">
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Qual é o seu nome?"
+              data-testid="input-player-name"
+              onChange={ this.handleChange }
+              value={ username }
+            />
+          </label>
+
           <button
             type="button"
             data-testid="btn-play"
@@ -68,7 +70,7 @@ class Login extends Component {
           >
             Play
           </button>
-          <Link to="/config">
+          {/* <Link to="/config">
             <button
               type="button"
               data-testid="btn-settings"
@@ -83,9 +85,9 @@ class Login extends Component {
             >
               Ranking
             </button>
-          </Link>
-        </form>
-      </div>
+          </Link> */}
+        </FormLogin>
+      </LoginContainer>
     );
   }
 }

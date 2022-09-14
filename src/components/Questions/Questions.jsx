@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import MultipleChoicesQuestion from './MultipleChoicesQuestion';
-import TrueOrFalseQuestion from './TrueOrFalseQuestion ';
-import { requestShowBtnNext, requestScore, correctAnswers } from '../redux/actions';
+import MultipleChoicesQuestion from '../MultipleChoicesQuestion/MultipleChoicesQuestion';
+import TrueOrFalseQuestion from '../TrueOrFalseQuestion ';
+import { requestShowBtnNext, requestScore, correctAnswers } from '../../redux/actions';
+import {
+  ButtonFooter,
+  ContainerQuestion,
+  Footer,
+  ImageTrybe,
+  MainContainer,
+} from './QuestionsStyle';
+import trybe from '../../images/trybe.svg';
 
 class Questions extends Component {
   constructor(props) {
@@ -85,10 +93,10 @@ class Questions extends Component {
     const { questions, showNext, history } = this.props;
     const { index, test, timer, disable, endTime, border, changeAnswers } = this.state;
     return (
-      <main>
+      <MainContainer>
         { questions && questions.length > 0
           && (
-            <div>
+            <ContainerQuestion>
               { questions[index].type === 'multiple'
                 ? (
                   <MultipleChoicesQuestion
@@ -115,18 +123,21 @@ class Questions extends Component {
                     changeAnswers={ changeAnswers }
                   />
                 )}
-            </div>
+            </ContainerQuestion>
           ) }
-        { showNext && (
-          <button
-            data-testid="btn-next"
-            type="button"
-            onClick={ test ? history.push('/feedback') : this.clickState }
-          >
-            NEXT
-          </button>
-        ) }
-      </main>
+        <Footer>
+          <ImageTrybe src={ trybe } alt="Logotipo Trybe" />
+          { showNext && (
+            <ButtonFooter
+              data-testid="btn-next"
+              type="button"
+              onClick={ test ? history.push('/feedback') : this.clickState }
+            >
+              PRÓXIMA
+            </ButtonFooter>
+          ) }
+        </Footer>
+      </MainContainer>
     );
   }
 }

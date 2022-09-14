@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
+import { Gear } from 'phosphor-react';
 import star from '../../images/star.svg';
+import {
+  ImageProfileStyle,
+  StarStyle,
+} from '../../pages/Ranking/RankingStyle';
+import { HeaderStyle, ContainerProfile } from './HeaderStyle';
 
 class Header extends Component {
   state = {
@@ -18,24 +24,29 @@ class Header extends Component {
     const { hash } = this.state;
     const { score, name } = this.props;
     return (
-      <header>
-        <div>
-          <div>
-            <img data-testid="header-profile-picture" src={ `https://www.gravatar.com/avatar/${hash}` } alt="avatar" />
-            <p data-testid="header-player-name">
-              { name }
-            </p>
-          </div>
+      <HeaderStyle>
+        <ContainerProfile>
+          <ImageProfileStyle data-testid="header-profile-picture" src={ `https://www.gravatar.com/avatar/${hash}` } alt="avatar" />
+          <p data-testid="header-player-name">
+            { name }
+          </p>
+        </ContainerProfile>
 
-          <div>
-            <img src={ star } alt="Estrela" />
-            <p data-testid="header-score">
-              { score }
-            </p>
-          </div>
+        <ContainerProfile>
+          <StarStyle src={ star } alt="Estrela" />
+          <span>Pontos:</span>
+          <span data-testid="header-score">
+            { score }
+          </span>
 
-        </div>
-      </header>
+        </ContainerProfile>
+        <Gear
+          color="#B5B5B5"
+          size={ 32 }
+          weight="fill"
+        />
+
+      </HeaderStyle>
     );
   }
 }

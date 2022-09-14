@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Header from '../components/Header/Header';
-import Questions from '../components/Questions';
+import Questions from '../components/Questions/Questions';
+
+const GameContainer = styled.div`
+  display: grid;
+  grid-template-rows: 110px 1fr;
+  height: 100vh;
+`;
 
 class Game extends Component {
   componentDidUpdate() {
@@ -20,10 +27,10 @@ class Game extends Component {
   render() {
     const { history } = this.props;
     return (
-      <div>
+      <GameContainer>
         <Header />
         <Questions history={ history } />
-      </div>
+      </GameContainer>
     );
   }
 }

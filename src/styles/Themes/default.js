@@ -6,10 +6,14 @@ const defaultTheme = {
   'blue-500': '#003BE5',
   'blue-700': '#00D5E2',
 
+  'white-300': '#ddd',
   'white-200': '#E1E5EB',
   'white-100': '#fff',
+
   gray: '#444955',
   black: '#1A1B1C',
+  yellow: '#F9BA18',
+  red: '#EA5D5D',
 };
 
 export default defaultTheme;

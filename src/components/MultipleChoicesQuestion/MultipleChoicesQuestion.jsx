@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { ClockClockwise } from 'phosphor-react';
-import { AnswerStyle, ButtonAnswer, CategoryAnswer, CategoryTitle, ContainerAsnwer,
+import {
+  ContainerAsnwer,
   ContainerChoice,
   ContentChoice,
+  CategoryAnswer,
+  CategoryTitle,
   TextQuestion,
-  TimerQuestion } from './MultipleChoicesQuestion/MultipleChoiceStyle';
+  TimerQuestion,
+  AnswerStyle,
+  ButtonAnswer,
+} from './MultipleChoiceStyle';
 
 const OPTIONS = ['A', 'B', 'C', 'D'];
-class TrueOrFalseQuestion extends Component {
+
+class MultipleChoicesQuestion extends Component {
   constructor(props) {
     super(props);
     const { shuffleAnswers, question } = this.props;
@@ -33,10 +40,9 @@ class TrueOrFalseQuestion extends Component {
     const { timer, disable, border, submitAnswer, question } = this.props;
     const { answers } = this.state;
     return (
-      question && (
-        <ContainerChoice>
+      <ContainerChoice>
+        { question && (
           <ContentChoice>
-
             <ContainerAsnwer>
               <CategoryAnswer
                 data-testid="question-category"
@@ -51,13 +57,15 @@ class TrueOrFalseQuestion extends Component {
                   size={ 25 }
                 />
                 <span>Tempo: </span>
-
-                <span>
-                  { timer }
-                  s
-                </span>
+                <div>
+                  <span>
+                    { timer }
+                  </span>
+                  <span>s</span>
+                </div>
 
               </TimerQuestion>
+
             </ContainerAsnwer>
             <AnswerStyle data-testid="answer-options">
               {answers.map((element, index) => {
@@ -65,7 +73,6 @@ class TrueOrFalseQuestion extends Component {
                   return (
                     <ButtonAnswer
                       key="correct-answer"
-                      className={ border && 'correct-answer' }
                       data-testid="correct-answer"
                       type="button"
                       value={ element }
@@ -98,16 +105,15 @@ class TrueOrFalseQuestion extends Component {
               })}
             </AnswerStyle>
           </ContentChoice>
-        </ContainerChoice>
-      )
+        ) }
+      </ContainerChoice>
     );
   }
 }
 
-TrueOrFalseQuestion.propTypes = {
+MultipleChoicesQuestion.propTypes = {
   changeAnswers: PropTypes.bool.isRequired,
   shuffleAnswers: PropTypes.func.isRequired,
-  timer: PropTypes.number.isRequired,
   setTimer: PropTypes.func.isRequired,
   border: PropTypes.bool.isRequired,
   disable: PropTypes.bool.isRequired,
@@ -119,9 +125,7 @@ TrueOrFalseQuestion.propTypes = {
     correct_answer: PropTypes.shape(PropTypes.object.isRequired),
     incorrect_answers: PropTypes.shape(PropTypes.object.isRequired),
   }).isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
+  timer: PropTypes.number.isRequired,
 };
 
-export default connect()(TrueOrFalseQuestion);
+export default connect()(MultipleChoicesQuestion);

@@ -7,6 +7,11 @@ import {
   PlayerStyle,
   ButtonBackHome,
   LogoStyle,
+  StarStyle,
+  ImageProfileStyle,
+  ProfileStyle,
+  PlayersConatiner,
+  ScoreStyle,
 } from './RankingStyle';
 import star from '../../images/star.svg';
 import logo from '../../images/logo.svg';
@@ -42,35 +47,38 @@ class Ranking extends Component {
         <RankingContent>
           <LogoStyle src={ logo } alt="logotipo" />
           <h1 data-testid="ranking-title">Ranking</h1>
-          { players.map((player, index) => (
-            <PlayerStyle key={ player.hash }>
-              <div>
-                <img src={ `https://www.gravatar.com/avatar/${player.hash}` } alt="avatar" />
+          <PlayersConatiner>
+            { players.map((player, index) => (
+              <PlayerStyle key={ player.hash + index }>
+                <ProfileStyle>
+                  <ImageProfileStyle src={ `https://www.gravatar.com/avatar/${player.hash}` } alt="avatar" />
 
-                <p
-                  data-testid={ `player-name-${index}` }
-                >
-                  { player.name }
-                </p>
-              </div>
+                  <p
+                    data-testid={ `player-name-${index}` }
+                  >
+                    { player.name }
+                  </p>
+                </ProfileStyle>
 
-              {/* <span>
+                {/* <span>
                     Acertos:
                     {' '}
                     { player.assertions }
                   </span> */}
-              <div>
-                <img src={ star } alt="Estrela" />
-                <span
-                  data-testid={ `player-score-${index}` }
-                >
-                  { player.score }
-                </span>
-                <span>pontos</span>
-              </div>
+                <ScoreStyle>
+                  <StarStyle src={ star } alt="Estrela" />
+                  <span
+                    data-testid={ `player-score-${index}` }
+                  >
+                    { player.score }
+                  </span>
+                  <span>pontos</span>
+                </ScoreStyle>
 
-            </PlayerStyle>
-          ))}
+              </PlayerStyle>
+            ))}
+          </PlayersConatiner>
+
           <ButtonBackHome
             type="button"
             data-testid="btn-go-home"

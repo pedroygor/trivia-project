@@ -38,7 +38,7 @@ export const RankingContent = styled.div`
     font-style: normal;
     text-transform: uppercase;
     margin-top: 124px;
-  }
+  }  
   
 `;
 
@@ -52,54 +52,12 @@ export const PlayerStyle = styled.div`
   justify-content: space-between;
   gap: 13px;
 
-  div:first-of-type {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-  }
-
-  div:last-of-type {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    height: 100%;
-    width: 184px;
-    background: ${(props) => props.theme['white-100']};
-    border-radius: 100px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
-
-    img {
-      width: 28px;
-      height: 28px;
-    }
-
-    span{
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 150%;
-      letter-spacing: 0.12em;
-    }
-
-    span:first-of-type {
-      font-weight: 700;
-    }
-    
-  }
-
   p {
     font-family: 'Epilogue';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 150%;
-  }
-
-  img {
-    width: 37px;
-    height: 37px;
-    border-radius: 50%;
-    margin-left: 10px;
   }
 `;
 
@@ -116,4 +74,74 @@ export const LogoStyle = styled.img`
   height: 200px;
   position: absolute;
   top: calc(100px - 200px);
+`;
+
+export const ProfileStyle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  height: 55px;
+`;
+
+export const ImageProfileStyle = styled.img`
+  width: 37px;
+  height: 37px;
+  border-radius: 50%;
+  margin-left: 10px;
+`;
+
+export const StarStyle = styled.img`
+    width: 28px;
+    height: 28px;
+`;
+
+export const ScoreStyle = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    height: 100%;
+    width: 184px;
+    background: ${(props) => props.theme['white-100']};
+    border-radius: 100px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+   padding-left: 10px;
+
+    span{
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 150%;
+      letter-spacing: 0.12em;
+    }
+
+    span:first-of-type {
+      font-weight: 700;
+    }
+    
+`;
+
+export const PlayersConatiner = styled.div`
+  width: 100%;
+  height: 200px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 13px;
+
+  ::-webkit-scrollbar {
+  width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+  background: ${(props) => props.theme['white-200']};
+  }
+
+  ::-webkit-scrollbar-thumb {
+  background-color:  ${(props) => props.theme['green-300']};
+  border-radius: 5px;
+  border: 3px solid ${(props) => props.theme['green-300']};
+}
+
+  scrollbar-width: thin;
+  scrollbar-color: red;
 `;

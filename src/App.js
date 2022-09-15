@@ -5,7 +5,7 @@ import Login from './pages/Login/Login';
 import Game from './pages/Game';
 import Config from './pages/Config';
 import Ranking from './pages/Ranking/Ranking';
-import Feedback from './pages/Feedback';
+import Feedback from './pages/Feedback/Feedback';
 import defaultTheme from './styles/Themes/default';
 import GlobalStyle from './styles/global';
 

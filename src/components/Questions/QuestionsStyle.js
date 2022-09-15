@@ -12,6 +12,7 @@ export const ContainerQuestion = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  position: relative;
 `;
 
 export const Footer = styled.footer`
@@ -33,4 +34,12 @@ export const ButtonFooter = styled(ButtonPlay)`
   height: 45px;
   margin: 20px auto;
   grid-column: 2 / 3;
+`;
+
+export const LogoStyleQuestion = styled.img`
+  width: 200px;
+  height: 222px;
+  position: absolute;
+  top: -111px;
+ left: 250px;
 `;

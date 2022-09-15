@@ -9,9 +9,11 @@ import {
   ContainerQuestion,
   Footer,
   ImageTrybe,
+  LogoStyleQuestion,
   MainContainer,
 } from './QuestionsStyle';
 import trybe from '../../images/trybe.svg';
+import logo from '../../images/logo.svg';
 
 class Questions extends Component {
   constructor(props) {
@@ -97,6 +99,7 @@ class Questions extends Component {
         { questions && questions.length > 0
           && (
             <ContainerQuestion>
+              <LogoStyleQuestion src={ logo } alt="Logotipo" />
               { questions[index].type === 'multiple'
                 ? (
                   <MultipleChoicesQuestion

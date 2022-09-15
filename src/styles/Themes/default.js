@@ -3,6 +3,7 @@ const defaultTheme = {
   'green-700': '#036B52',
   'purple-300': '#8958A3',
   'purple-700': '#41197F',
+  'purple-800': '#3C1B7A',
   'blue-500': '#003BE5',
   'blue-700': '#00D5E2',
 

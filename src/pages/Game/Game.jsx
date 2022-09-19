@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import Header from '../components/Header/Header';
-import Questions from '../components/Questions/Questions';
-
-const GameContainer = styled.div`
-  display: grid;
-  grid-template-rows: 110px 1fr;
-  height: 100vh;
-`;
+import Header from '../../components/Header/Header';
+import Questions from '../../components/Questions/Questions';
+import GameContainer from './Game';
 
 class Game extends Component {
   componentDidUpdate() {

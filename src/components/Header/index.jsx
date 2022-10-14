@@ -7,8 +7,8 @@ import star from '../../images/star.svg';
 import {
   ImageProfileStyle,
   StarStyle,
-} from '../../pages/Ranking/RankingStyle';
-import { HeaderStyle, ContainerProfile } from './HeaderStyle';
+} from '../../pages/Ranking/style';
+import { HeaderStyle, ContainerProfile } from './style';
 
 class Header extends Component {
   state = {

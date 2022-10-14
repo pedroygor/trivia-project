@@ -6,7 +6,7 @@ import { AnswerStyle, ButtonAnswer, CategoryAnswer, CategoryTitle, ContainerAsnw
   ContainerChoice,
   ContentChoice,
   TextQuestion,
-  TimerQuestion } from './MultipleChoicesQuestion/MultipleChoiceStyle';
+  TimerQuestion } from './MultipleChoicesQuestion/style';
 
 const OPTIONS = ['A', 'B', 'C', 'D'];
 class TrueOrFalseQuestion extends Component {

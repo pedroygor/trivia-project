@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Header from '../../components/Header/Header';
-import Questions from '../../components/Questions/Questions';
-import GameContainer from './Game';
+import Header from '../../components/Header/index';
+import Questions from '../../components/Questions/index';
+import GameContainer from './style';
 
 class Game extends Component {
   componentDidUpdate() {

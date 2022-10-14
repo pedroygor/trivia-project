@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import bg from '../../images/bgQuestion.jpg';
-import { ButtonPlay } from '../../pages/Login/LoginStyle';
+import { ButtonPlay } from '../../pages/Login/style';
 
 export const MainContainer = styled.main`
   display: grid;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import bg from '../../images/background.jpg';
-import { ButtonPlay } from '../Login/LoginStyle';
+import { ButtonPlay } from '../Login/style';
 
 export const RankingConatiner = styled.section`
     height: 100vh;

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import Login from './pages/Login/Login';
-import Game from './pages/Game/Game.jsx';
-import Config from './pages/Config/Config.jsx';
-import Ranking from './pages/Ranking/Ranking';
-import Feedback from './pages/Feedback/Feedback';
+import Login from './pages/Login/index';
+import Game from './pages/Game/index';
+import Config from './pages/Config/index';
+import Ranking from './pages/Ranking/index';
+import Feedback from './pages/Feedback/index';
 import defaultTheme from './styles/Themes/default';
 import GlobalStyle from './styles/global';
 

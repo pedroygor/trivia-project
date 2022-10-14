@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import MultipleChoicesQuestion from '../MultipleChoicesQuestion/MultipleChoicesQuestion';
+import MultipleChoicesQuestion from '../MultipleChoicesQuestion/index';
 import TrueOrFalseQuestion from '../TrueOrFalseQuestion ';
 import { requestShowBtnNext, requestScore, correctAnswers } from '../../redux/actions';
 import {
@@ -11,7 +11,7 @@ import {
   ImageTrybe,
   LogoStyleQuestion,
   MainContainer,
-} from './QuestionsStyle';
+} from './style';
 import trybe from '../../images/trybe.svg';
 import logo from '../../images/logo.svg';
 

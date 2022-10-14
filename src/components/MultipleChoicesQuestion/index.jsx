@@ -12,7 +12,7 @@ import {
   TimerQuestion,
   AnswerStyle,
   ButtonAnswer,
-} from './MultipleChoiceStyle';
+} from './style';
 
 const OPTIONS = ['A', 'B', 'C', 'D'];
 

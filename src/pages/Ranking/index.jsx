@@ -12,7 +12,7 @@ import {
   ProfileStyle,
   PlayersConatiner,
   ScoreStyle,
-} from './RankingStyle';
+} from './style';
 import star from '../../images/star.svg';
 import logo from '../../images/logo.svg';
 

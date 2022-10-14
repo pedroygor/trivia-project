@@ -10,7 +10,7 @@ import {
   LinksContainer,
   ButtonPlay,
   ButtonLink,
-} from './LoginStyle';
+} from './style';
 
 class Login extends Component {
   constructor() {

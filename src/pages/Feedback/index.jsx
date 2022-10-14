@@ -13,7 +13,7 @@ import {
   ContentFeedback,
   ButtonRankingFeedback,
   ButtonPlayAgain,
-} from './FeedBackStyle';
+} from './style';
 
 class Feedback extends Component {
   state = {

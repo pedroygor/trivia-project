@@ -5,9 +5,9 @@ import {
   LogoStyle,
   RankingConatiner,
   RankingContent,
-} from '../Ranking/RankingStyle';
+} from '../Ranking/style';
 import logo from '../../images/logo.svg';
-import { FormConfig, SelectConfig } from './Config';
+import { FormConfig, SelectConfig } from './style';
 
 class Config extends Component {
   render() {

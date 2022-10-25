@@ -5,7 +5,6 @@
   "engines": {
     "node": "16"
   },
-  "homepage": "https://pedroygor.github.io/trivia-project",
   "dependencies": {
     "@redux-devtools/extension": "^3.2.2",
     "@testing-library/jest-dom": "^5.16.5",
@@ -25,8 +24,6 @@
     "styled-components": "^5.3.5"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "cy": "env CY_CLI=true cypress run",
     "cy:open": "cypress open --e2e --browser chrome",
     "start": "env ESLINT_NO_DEV_ERRORS=true react-scripts start",

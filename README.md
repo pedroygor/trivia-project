@@ -1,4 +1,4 @@
-# Trybe Wallet
+# Trivia
 
 Este projeto trata-se de um trabalho em equipe feito na trybe, é um jogo de perguntas e respostas baseado no jogo Trivia (tipo um show do milhão americano).
 
